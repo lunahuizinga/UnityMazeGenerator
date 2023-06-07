@@ -1,4 +1,5 @@
 using System;
+using Algorithms;
 using UnityEngine;
 public class MazeGenerator : MonoBehaviour{
     public enum AlgorithmType{
@@ -40,5 +41,12 @@ public class MazeGenerator : MonoBehaviour{
             MazeCell mazeCell = new();
             mazeCells[x, y] = mazeCell;
         }
+    }
+
+    private void InitialiseAlgorithm(){
+        algorithmInstance = Algorithm switch{
+            AlgorithmType.RandomDepthFirst => new RandomDepthFirst(),
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }
