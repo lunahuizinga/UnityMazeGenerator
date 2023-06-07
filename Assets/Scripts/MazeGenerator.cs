@@ -21,7 +21,7 @@ public class MazeGenerator : MonoBehaviour{
     }
 
     // Generate is used to start a new maze generation cycle
-    private void Generate(){
+    public void Generate(){
     }
 
     // Initialise initialises the necessary variables to the correct values
