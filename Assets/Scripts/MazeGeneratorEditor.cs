@@ -1,2 +1,4 @@
-﻿public class MazeGeneratorEditor{
+﻿using UnityEditor;
+[CustomEditor(typeof(MazeGenerator))]
+public class MazeGeneratorEditor : Editor{
 }
