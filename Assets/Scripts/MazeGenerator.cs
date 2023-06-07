@@ -11,7 +11,6 @@ public class MazeGenerator : MonoBehaviour{
     // The maze generation algorithm to use for generating the maze
     public AlgorithmType Algorithm;
 
-    private MazeCell[,] mazeCells;
     private MazeAlgorithm algorithmInstance;
 
     // Start is called before the first frame update
@@ -28,19 +27,7 @@ public class MazeGenerator : MonoBehaviour{
 
     // Initialise initialises the necessary variables to the correct values
     private void Initialise(){
-        InitialiseCells();
-    }
-
-    private void InitialiseCells(){
-        // Initialise the two dimensional cell array with the dimensions set by the user
-        mazeCells = new MazeCell[Size.x, Size.y];
-        
-        // Loop through the array and initialise every cell in the array
-        for (int x = 0; x < mazeCells.GetLength(0); x++)
-        for (int y = 0; y < mazeCells.GetLength(1); y++){
-            MazeCell mazeCell = new();
-            mazeCells[x, y] = mazeCell;
-        }
+        InitialiseAlgorithm();
     }
 
     private void InitialiseAlgorithm(){
