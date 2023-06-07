@@ -12,7 +12,7 @@ public class MazeGenerator : MonoBehaviour{
     public AlgorithmType Algorithm;
 
     private MazeCell[,] mazeCells;
-    private IMazeAlgorithm algorithmInstance;
+    private MazeAlgorithm algorithmInstance;
 
     // Start is called before the first frame update
     private void Start(){
