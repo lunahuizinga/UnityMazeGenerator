@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class MazeGenerator : MonoBehaviour{
     public enum AlgorithmType{
@@ -25,6 +26,10 @@ public class MazeGenerator : MonoBehaviour{
 
     // Initialise initialises the necessary variables to the correct values
     private void Initialise(){
+        InitialiseCells();
+    }
+
+    private void InitialiseCells(){
         // Initialise the two dimensional cell array with the dimensions set by the user
         mazeCells = new MazeCell[Size.x, Size.y];
         
