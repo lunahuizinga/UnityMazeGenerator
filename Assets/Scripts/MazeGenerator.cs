@@ -27,10 +27,6 @@ public class MazeGenerator : MonoBehaviour{
 
     // Initialise initialises the necessary variables to the correct values
     private void Initialise(){
-        InitialiseAlgorithm();
-    }
-
-    private void InitialiseAlgorithm(){
         algorithmInstance = Algorithm switch{
             AlgorithmType.RandomDepthFirst => new RandomDepthFirst(),
             _ => throw new ArgumentOutOfRangeException()
