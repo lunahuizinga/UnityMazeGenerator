@@ -434,7 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a05e50c6f9c3a488fa19da53fb27a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Size: {x: 0, y: 0}
+  Size: {x: 10, y: 10}
   Algorithm: 0
   WallPrefab: {fileID: 0}
 --- !u!4 &1904419019
