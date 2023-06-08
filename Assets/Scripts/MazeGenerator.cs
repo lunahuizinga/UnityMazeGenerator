@@ -13,6 +13,7 @@ public class MazeGenerator : MonoBehaviour{
     // The prefab we use for building walls
     public GameObject WallPrefab;
 
+    // Our instance of the selected maze algorithm
     private MazeAlgorithm algorithmInstance;
 
     // Start is called before the first frame update
