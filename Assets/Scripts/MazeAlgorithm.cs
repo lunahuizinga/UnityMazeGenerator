@@ -14,7 +14,7 @@ public abstract class MazeAlgorithm{
         // Loop through the array and initialise every cell in the array
         for (int x = 0; x < MazeCells.GetLength(0); x++)
         for (int y = 0; y < MazeCells.GetLength(1); y++){
-            MazeCells[x, y] = new MazeCell();
+            MazeCells[x, y] = new MazeCell(x, y);
         }
     }
 }
