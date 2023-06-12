@@ -15,7 +15,7 @@ public class MazeCell{
         }
     }
 
-    // Overload the constructor in case we already have established 
+    // Overload the constructor to add the option of providing an existing array of MazeCellSides
     public MazeCell(MazeCellSide[] cellSides){
         CellSides = cellSides;
     }
