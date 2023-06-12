@@ -2,7 +2,7 @@
 public class MazeCell{
     public MazeCellSide[] CellSides;
     
-    // Define the amount of sides we want to our cell
+    // Define the amount of sides we want for our cell
     private const int SideAmount = 4;
 
     public MazeCell(){
