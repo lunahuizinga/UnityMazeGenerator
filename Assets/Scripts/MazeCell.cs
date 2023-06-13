@@ -1,5 +1,14 @@
 ﻿// The class representing a single cell of the maze
+using System;
 public class MazeCell{
+    
+    public enum CellDirection{
+        PositiveZ,
+        PositiveX,
+        NegativeZ,
+        NegativeX
+    }
+    
     public MazeCellSide[] CellSides;
     public readonly int X;
     public readonly int Y;
@@ -32,5 +41,24 @@ public class MazeCell{
         
         // Return the newly initialised array
         return cellSides;
+    }
+
+    // Return the MazeCellSide instance corresponding to the CellDirection
+    public MazeCellSide GetCellSideInstance(CellDirection direction){
+        return CellSides[(int) direction];
+    }
+
+    /// <summary>
+    /// Attempt to determine the direction of the cell that matches the MazeCellSide provided.
+    /// If the MazeCellSide provided is not part of the MazeCell this method returns null.
+    /// </summary>
+    /// <param name="cellSide">The MazeCellSide instance of which to determine the direction of the cell.</param>
+    /// <returns>
+    /// The CellDirection of the cell that corresponds to the MazeCellSide passed in.
+    /// Will be null if the MazeCellSide is not a part of the MazeCell.
+    /// </returns>
+    public CellDirection? GetCellSideDirection(MazeCellSide cellSide){
+        int index = Array.IndexOf(CellSides, cellSide);
+        return index != -1 ? (CellDirection) index : null;
     }
 }
