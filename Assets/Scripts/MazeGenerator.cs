@@ -1,3 +1,5 @@
+using System;
+using Algorithms;
 using UnityEngine;
 public class MazeGenerator : MonoBehaviour{
     public enum AlgorithmType{
@@ -8,31 +10,35 @@ public class MazeGenerator : MonoBehaviour{
     public Vector2Int Size;
     // The maze generation algorithm to use for generating the maze
     public AlgorithmType Algorithm;
+    // The prefab we use for spawning a cell
+    public GameObject CellPrefab;
 
-    private MazeCell[,] mazeCells;
-
-    // Start is called before the first frame update
-    private void Start(){
-    }
-
-    // Update is called once per frame
-    private void Update(){
-    }
+    // Our instance of the selected maze algorithm
+    private MazeAlgorithm algorithmInstance;
 
     // Generate is used to start a new maze generation cycle
-    private void Generate(){
+    public void Generate(){
+        Initialise();
+        MazeCell[,] generatedMaze = algorithmInstance.Generate(Size.x, Size.y);
+        BuildMaze(generatedMaze);
     }
 
     // Initialise initialises the necessary variables to the correct values
     private void Initialise(){
-        // Initialise the two dimensional cell array with the dimensions set by the user
-        mazeCells = new MazeCell[Size.x, Size.y];
-        
-        // Loop through the array and initialise every cell in the array
-        for (int x = 0; x < mazeCells.GetLength(0); x++)
-        for (int y = 0; y < mazeCells.GetLength(1); y++){
-            MazeCell mazeCell = new();
-            mazeCells[x, y] = mazeCell;
+        algorithmInstance = Algorithm switch{
+            AlgorithmType.RandomDepthFirst => new RandomDepthFirst(),
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+
+    // Loop through all cells in the array and build the maze
+    private void BuildMaze(MazeCell[,] mazeCells){
+        GameObject maze = new("Maze");
+        foreach (MazeCell mazeCell in mazeCells){
+            Vector3 position = new(mazeCell.X, 0, mazeCell.Y);
+            GameObject cellObject = Instantiate(CellPrefab, position, Quaternion.Euler(Vector3.zero), maze.transform);
+            MazeCellBuilder mazeCellBuilder = cellObject.GetComponent<MazeCellBuilder>();
+            mazeCellBuilder.BuildCell(mazeCell);
         }
     }
 }
