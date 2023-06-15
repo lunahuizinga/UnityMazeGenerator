@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 public class MazeCellBuilder : MonoBehaviour{
     
@@ -49,56 +48,5 @@ public class MazeCellBuilder : MonoBehaviour{
             >= 315 or < 45 => new Vector3(0, 0, 0),
             _ => throw new ArgumentException("Invalid rotation.")
         };
-    }
-    
-    /// <summary>
-    /// Get the matching CellType for a given MazeCell instance.
-    /// </summary>
-    /// <param name="mazeCell">The MazeCell instance to get the CellType of.</param>
-    /// <returns>
-    /// The CellType that matches the walls of the MazeCell.
-    /// Will be null if no matching CellType can be found.
-    /// </returns>
-    private static MazeCell.CellType? GetCellType(MazeCell mazeCell){
-        // Count the amount of walls we need in our prefab by checking the
-        // amount of MazeCellSides in our MazeCell that have IsSolid set to true
-        int wallAmount = mazeCell.CellSides.Count(cellSide => cellSide.IsSolid);
-        
-        // We can tell what kind of cell we have depending on the amount of walls it has, except for
-        // when we have two walls, in which case we should check if the walls are consecutive (next to each other).
-        return wallAmount switch{
-            0 => MazeCell.CellType.Intersection,
-            1 => MazeCell.CellType.ThreeWay,
-            2 => HasConsecutiveWalls(mazeCell, 2) ? MazeCell.CellType.Corner : MazeCell.CellType.Hallway,
-            3 => MazeCell.CellType.DeadEnd,
-            4 => MazeCell.CellType.Closed,
-            _ => null
-        };
-    }
-    
-    /// <summary>
-    /// Loops through the MazeCell's CellSides array and counts the amount
-    /// of consecutive walls it encounters. If this is more than the provided
-    /// consecutiveWallAmount this method returns true, otherwise false.
-    /// </summary>
-    /// <param name="mazeCell">The MazeCell instance to count the walls of.</param>
-    /// <param name="consecutiveWallAmount">The amount of consecutive walls the MazeCell should have.</param>
-    /// <returns>Returns true if the cell has at least the specified amount of consecutive walls.</returns>
-    protected static bool HasConsecutiveWalls(MazeCell mazeCell, int consecutiveWallAmount){
-        int consecutiveWalls = 0;
-        foreach (MazeCellSide cellSide in mazeCell.CellSides.Concat(mazeCell.CellSides)){
-            if (cellSide.IsSolid) consecutiveWalls++;
-            else consecutiveWalls = 0;
-            if (consecutiveWalls >= consecutiveWallAmount) return true;
-        }
-        return false;
-    }
-
-    // Start is called before the first frame update
-    private void Start(){
-    }
-
-    // Update is called once per frame
-    private void Update(){
     }
 }
