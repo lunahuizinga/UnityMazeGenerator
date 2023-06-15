@@ -1,5 +1,6 @@
 ﻿// The class representing a single cell of the maze
 using System;
+using System.Collections.Generic;
 public class MazeCell{
     
     public enum CellDirection{
@@ -112,5 +113,32 @@ public class MazeCell{
     public CellDirection? GetCellSideDirection(MazeCellSide cellSide){
         int index = Array.IndexOf(CellSides, cellSide);
         return index != -1 ? (CellDirection) index : null;
+    }
+    
+    /// <summary>
+    /// Get the surrounding neighbours of the specified MazeCell, if they exist.
+    /// </summary>
+    /// <param name="mazeArray">The two-dimensional maze array that the MazeCell is part of. </param>
+    /// <param name="mazeCell">The MazeCell to get the neighbours of.</param>
+    /// <returns>
+    /// An array containing the neighbours of the given MazeCell.
+    /// The neighbours are given in clockwise order starting at positive Y.
+    /// </returns>
+    public static IEnumerable<MazeCell> GetNeighbours(MazeCell[,] mazeArray, MazeCell mazeCell){
+        MazeCell[] neighbours = new MazeCell[SideAmount];
+        
+        for (int i = 0; i < neighbours.Length; i++){
+            neighbours[i] = null;
+        }
+
+        int mazeSizeX = mazeArray.GetLength(0);
+        int mazeSizeY = mazeArray.GetLength(1);
+
+        if (mazeCell.Y < (mazeSizeY - 1)) neighbours[0] = mazeArray[mazeCell.X, mazeCell.Y + 1];
+        if (mazeCell.X < (mazeSizeX - 1)) neighbours[1] = mazeArray[mazeCell.X + 1, mazeCell.Y];
+        if (mazeCell.Y > 0) neighbours[2] = mazeArray[mazeCell.X, mazeCell.Y - 1];
+        if (mazeCell.X > 0) neighbours[3] = mazeArray[mazeCell.X - 1, mazeCell.Y];
+        
+        return neighbours;
     }
 }
