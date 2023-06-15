@@ -5,9 +5,9 @@ public class MazeCell{
     
     // Define the different directions of a cell
     public enum CellDirection{
-        PositiveZ,
+        PositiveY,
         PositiveX,
-        NegativeZ,
+        NegativeY,
         NegativeX
     }
     
@@ -157,9 +157,9 @@ public class MazeCell{
         int deltaY = neighbour.Y - Y;
 
         return deltaX switch{
-            0 when deltaY == 1 => CellDirection.PositiveZ,
+            0 when deltaY == 1 => CellDirection.PositiveY,
             1 when deltaY == 0 => CellDirection.PositiveX,
-            0 when deltaY == -1 => CellDirection.NegativeZ,
+            0 when deltaY == -1 => CellDirection.NegativeY,
             -1 when deltaY == 0 => CellDirection.NegativeX,
             _ => throw new ArgumentException("Given MazeCell is not a neighbour!")
         };
@@ -175,9 +175,9 @@ public class MazeCell{
     /// </exception>
     public static CellDirection GetOppositeDirection(CellDirection direction){
         return direction switch{
-            CellDirection.PositiveZ => CellDirection.NegativeZ,
+            CellDirection.PositiveY => CellDirection.NegativeY,
             CellDirection.PositiveX => CellDirection.NegativeX,
-            CellDirection.NegativeZ => CellDirection.PositiveZ,
+            CellDirection.NegativeY => CellDirection.PositiveY,
             CellDirection.NegativeX => CellDirection.PositiveX,
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, "Not a valid direction!")
         };
