@@ -143,6 +143,24 @@ public class MazeCell{
     }
     
     /// <summary>
+    /// This method will get the CellDirection of the given neighbouring MazeCell.
+    /// </summary>
+    /// <param name="neighbour">The neighbour to get the direction of.</param>
+    /// <returns>The CellDirection to the neighbour relative to the cell the method is called on.</returns>
+    public CellDirection GetNeighbourDirection(MazeCell neighbour){
+        int deltaX = neighbour.X - X;
+        int deltaY = neighbour.Y - Y;
+
+        return deltaX switch{
+            0 when deltaY == 1 => CellDirection.PositiveZ,
+            1 when deltaY == 0 => CellDirection.PositiveX,
+            0 when deltaY == -1 => CellDirection.NegativeZ,
+            -1 when deltaY == 0 => CellDirection.NegativeX,
+            _ => throw new ArgumentException("Given MazeCell is not a neighbour!")
+        };
+    }
+    
+    /// <summary>
     /// Gets the opposite CellDirection of the given CellDirection.
     /// </summary>
     /// <param name="direction">The CellDirection to get the opposite CellDirection of.</param>
