@@ -31,7 +31,16 @@ public class MazeCellBuilder : MonoBehaviour{
 
         Instantiate(cellPrefab, GetCellPositionOffset(rotation), Quaternion.Euler(0, rotation, 0), transform);
     }
-
+    
+    /// <summary>
+    /// This method gets the offset to use for a certain rotation when placing a cell.
+    /// </summary>
+    /// <param name="rotationDegrees">
+    /// The rotation of the MazeCell in degrees.
+    /// This is expected to be in positive 90 degree angles (0, 90, 180, or 270).
+    /// </param>
+    /// <returns>A Vector3 that offsets the given rotation.</returns>
+    /// <exception cref="ArgumentException"></exception>
     private static Vector3 GetCellPositionOffset(float rotationDegrees){
         return (rotationDegrees % 360) switch{
             >= 45 and < 135 => new Vector3(0, 0, 1),
