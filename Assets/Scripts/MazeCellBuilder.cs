@@ -27,8 +27,8 @@ public class MazeCellBuilder : MonoBehaviour{
             MazeCell.CellType.Closed => ClosedOffPrefab,
             _ => throw new ArgumentException("Invalid MazeCell.")
         };
-
-        Instantiate(cellPrefab, GetCellPositionOffset(rotation), Quaternion.Euler(0, rotation, 0), transform);
+        
+        Instantiate(cellPrefab, transform.position + GetCellPositionOffset(rotation), Quaternion.Euler(0, rotation, 0), transform);
     }
     
     /// <summary>
@@ -44,7 +44,7 @@ public class MazeCellBuilder : MonoBehaviour{
         return (rotationDegrees % 360) switch{
             >= 45 and < 135 => new Vector3(0, 0, 1),
             >= 135 and < 225 => new Vector3(1, 0, 1),
-            >= 225 and < 315 => new Vector3(1, 0, 1),
+            >= 225 and < 315 => new Vector3(1, 0, 0),
             >= 315 or < 45 => new Vector3(0, 0, 0),
             _ => throw new ArgumentException("Invalid rotation.")
         };
