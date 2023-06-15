@@ -19,6 +19,7 @@ public class MazeCell{
     }
     
     public MazeCellSide[] CellSides;
+    public bool IsVisited;
     public readonly int X;
     public readonly int Y;
     
