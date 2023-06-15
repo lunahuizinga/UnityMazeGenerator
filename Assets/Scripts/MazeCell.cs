@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 public class MazeCell{
     
+    // Define the different directions of a cell
     public enum CellDirection{
         PositiveZ,
         PositiveX,
@@ -10,6 +11,7 @@ public class MazeCell{
         NegativeX
     }
     
+    // Define the types of cell we can have in a two dimensional maze
     public enum CellType{
         Corner,
         DeadEnd,
@@ -19,8 +21,11 @@ public class MazeCell{
         Closed
     }
     
+    // Every MazeCellSide represents a side of the cell
     public MazeCellSide[] CellSides;
+    // Have we visited this cell yet during our maze generation?
     public bool IsVisited;
+    // The cell keeps track of its own X and Y coordinates in the maze
     public readonly int X;
     public readonly int Y;
     
