@@ -1,6 +1,5 @@
 ﻿using UnityEditor;
 using UnityEngine;
-
 [CustomEditor(typeof(MazeGenerator))]
 public class MazeGeneratorEditor : Editor{
     // Override the OnInspectorGUI with our own method
