@@ -10,8 +10,8 @@ public class MazeGenerator : MonoBehaviour{
     public Vector2Int Size;
     // The maze generation algorithm to use for generating the maze
     public AlgorithmType Algorithm;
-    // The prefab we use for building walls
-    public GameObject WallPrefab;
+    // The prefab we use for spawning a cell
+    public GameObject CellPrefab;
 
     // Our instance of the selected maze algorithm
     private MazeAlgorithm algorithmInstance;
