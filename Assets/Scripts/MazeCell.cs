@@ -121,20 +121,23 @@ public class MazeCell{
     /// <param name="mazeArray">The two-dimensional maze array that the MazeCell is part of. </param>
     /// <param name="mazeCell">The MazeCell to get the neighbours of.</param>
     /// <returns>
-    /// An array of tuples containing the neighbours of the given MazeCell
-    /// as well as the direction neighbour relative to the given cell.
+    /// An array containing the neighbours of the given MazeCell.
     /// The neighbours are given in clockwise order starting at positive Y.
     /// </returns>
-    public static IEnumerable<(MazeCell, CellDirection)> GetNeighbours(MazeCell[,] mazeArray, MazeCell mazeCell){
-        (MazeCell, CellDirection)[] neighbours = new (MazeCell, CellDirection)[SideAmount];
+    public static IEnumerable<MazeCell> GetNeighbours(MazeCell[,] mazeArray, MazeCell mazeCell){
+        MazeCell[] neighbours = new MazeCell[SideAmount];
+        
+        for (int i = 0; i < neighbours.Length; i++){
+            neighbours[i] = null;
+        }
 
         int mazeSizeX = mazeArray.GetLength(0);
         int mazeSizeY = mazeArray.GetLength(1);
 
-        if (mazeCell.Y < (mazeSizeY - 1)) neighbours[0] = (mazeArray[mazeCell.X, mazeCell.Y + 1], CellDirection.PositiveZ);
-        if (mazeCell.X < (mazeSizeX - 1)) neighbours[1] = (mazeArray[mazeCell.X + 1, mazeCell.Y], CellDirection.PositiveX);
-        if (mazeCell.Y > 0) neighbours[2] = (mazeArray[mazeCell.X, mazeCell.Y - 1], CellDirection.NegativeZ);
-        if (mazeCell.X > 0) neighbours[3] = (mazeArray[mazeCell.X - 1, mazeCell.Y], CellDirection.NegativeX);
+        if (mazeCell.Y < (mazeSizeY - 1)) neighbours[0] = mazeArray[mazeCell.X, mazeCell.Y + 1];
+        if (mazeCell.X < (mazeSizeX - 1)) neighbours[1] = mazeArray[mazeCell.X + 1, mazeCell.Y];
+        if (mazeCell.Y > 0) neighbours[2] = mazeArray[mazeCell.X, mazeCell.Y - 1];
+        if (mazeCell.X > 0) neighbours[3] = mazeArray[mazeCell.X - 1, mazeCell.Y];
         
         return neighbours;
     }
