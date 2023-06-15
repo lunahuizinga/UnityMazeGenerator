@@ -16,14 +16,6 @@ public class MazeGenerator : MonoBehaviour{
     // Our instance of the selected maze algorithm
     private MazeAlgorithm algorithmInstance;
 
-    // Start is called before the first frame update
-    private void Start(){
-    }
-
-    // Update is called once per frame
-    private void Update(){
-    }
-
     // Generate is used to start a new maze generation cycle
     public void Generate(){
         Initialise();
