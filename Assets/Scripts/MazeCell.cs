@@ -9,6 +9,15 @@ public class MazeCell{
         NegativeX
     }
     
+    public enum CellType{
+        Corner,
+        DeadEnd,
+        Hallway,
+        ThreeWay,
+        Intersection,
+        Closed
+    }
+    
     public MazeCellSide[] CellSides;
     public readonly int X;
     public readonly int Y;
@@ -27,6 +36,48 @@ public class MazeCell{
         Y = y;
         
         CellSides = cellSides;
+    }
+    
+    /// <summary>
+    /// This method checks the CellSides of the cell and matches it with
+    /// the corresponding CellType and accompanying rotation.
+    /// </summary>
+    /// <returns>A tuple containing the CellType and a float describing the rotation along the Y axis in degrees.</returns>
+    /// <exception cref="InvalidOperationException">
+    /// This method returns an InvalidOperationException when the pattern of the CellSides
+    /// of the cell the method is called on does not correspond to any known state.
+    /// </exception>
+    public (CellType cellType, float rotationDegrees) GetCellTypeAndRotation(){
+        int bitPattern = 0;
+        for (int i = 0; i < CellSides.Length; i++){
+            if (CellSides[i].IsSolid) bitPattern |= 1 << i;
+        }
+
+        return bitPattern switch{
+            0b0000 => (CellType.Intersection, 0),
+            
+            0b0001 => (CellType.ThreeWay, 0),
+            0b0010 => (CellType.ThreeWay, 90),
+            0b0100 => (CellType.ThreeWay, 180),
+            0b1000 => (CellType.ThreeWay, 270),
+            
+            0b0011 => (CellType.Corner, 90),
+            0b0110 => (CellType.Corner, 180),
+            0b1100 => (CellType.Corner, 270),
+            0b1001 => (CellType.Corner, 0),
+            
+            0b0101 => (CellType.Hallway, 90),
+            0b1010 => (CellType.Hallway, 0),
+            
+            0b0111 => (CellType.DeadEnd, 90),
+            0b1110 => (CellType.DeadEnd, 180),
+            0b1101 => (CellType.DeadEnd, 270),
+            0b1011 => (CellType.DeadEnd, 0),
+            
+            0b1111 => (CellType.Closed, 0),
+            
+            _ => throw new InvalidOperationException("Invalid bit pattern.")
+        };
     }
     
     // Create a new MazeCellSide array and fill it with new instances of MazeCellSide
