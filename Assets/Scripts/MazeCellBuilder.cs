@@ -12,8 +12,6 @@ public class MazeCellBuilder : MonoBehaviour{
     /// <summary>
     /// Spawn a new Maze Cell instance in world corresponding to the given MazeCell.
     /// </summary>
-    /// <param name="x">The size of the maze along the "horizontal" axis.</param>
-    /// <param name="y">The size of the maze along the "vertical" axis.</param>
     /// <param name="mazeCell">The instance of the MazeCell to construct in the world.</param>
     public void BuildCell(MazeCell mazeCell){
         (MazeCell.CellType type, float rotation) = mazeCell.GetCellTypeAndRotation();
