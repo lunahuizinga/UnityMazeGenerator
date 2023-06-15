@@ -141,4 +141,22 @@ public class MazeCell{
         
         return neighbours;
     }
+    
+    /// <summary>
+    /// Gets the opposite CellDirection of the given CellDirection.
+    /// </summary>
+    /// <param name="direction">The CellDirection to get the opposite CellDirection of.</param>
+    /// <returns>The opposite CellDirection of the given CellDirection.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Returns an ArgumentOutOfRangeException when the given CellDirection is not valid.
+    /// </exception>
+    public static CellDirection GetOppositeDirection(CellDirection direction){
+        return direction switch{
+            CellDirection.PositiveZ => CellDirection.NegativeZ,
+            CellDirection.PositiveX => CellDirection.NegativeX,
+            CellDirection.NegativeZ => CellDirection.PositiveZ,
+            CellDirection.NegativeX => CellDirection.PositiveX,
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, "Not a valid direction!")
+        };
+    }
 }
