@@ -10,11 +10,13 @@ public class MazeGenerator : MonoBehaviour{
     public Vector2Int Size;
     // The maze generation algorithm to use for generating the maze
     public AlgorithmType Algorithm;
-    // The prefab we use for spawning a cell
-    public GameObject CellPrefab;
+    // The material to use for the walls of our maze
+    public Material MazeMaterial;
 
     // Our instance of the selected maze algorithm
     private MazeAlgorithm algorithmInstance;
+    // The instance of the maze GameObject that we create
+    private GameObject maze;
 
     // Generate is used to start a new maze generation cycle
     public void Generate(){
@@ -31,14 +33,21 @@ public class MazeGenerator : MonoBehaviour{
         };
     }
 
-    // Loop through all cells in the array and build the maze
+    // Set up a new maze GameObject, build the maze mesh, and assign and initialise the proper components
     private void BuildMaze(MazeCell[,] mazeCells){
-        GameObject maze = new("Maze");
-        foreach (MazeCell mazeCell in mazeCells){
-            Vector3 position = new(mazeCell.X, 0, mazeCell.Y);
-            GameObject cellObject = Instantiate(CellPrefab, position, Quaternion.Euler(Vector3.zero), maze.transform);
-            MazeCellBuilder mazeCellBuilder = cellObject.GetComponent<MazeCellBuilder>();
-            mazeCellBuilder.BuildCell(mazeCell);
+        if (maze != null){
+            if(Application.isPlaying) Destroy(maze);
+            else DestroyImmediate(maze);
         }
+        maze = new GameObject("Maze");
+        
+        MazeMeshBuilder mazeMeshBuilder = maze.AddComponent<MazeMeshBuilder>();
+        Mesh mazeMesh = mazeMeshBuilder.BuildMesh(mazeCells);
+        
+        MeshFilter meshFilter = maze.AddComponent<MeshFilter>();
+        meshFilter.mesh = mazeMesh;
+        
+        MeshRenderer meshRenderer = maze.AddComponent<MeshRenderer>();
+        meshRenderer.material = MazeMaterial;
     }
 }

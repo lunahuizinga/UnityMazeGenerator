@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Size: {x: 10, y: 10}
   Algorithm: 0
-  CellPrefab: {fileID: 7290885324348935525, guid: 5ba00f03cdbe9fd4eb61cb615b197696,
-    type: 3}
+  MazeMaterial: {fileID: 2100000, guid: e3c182034de3a7149b5611bb1bb48543, type: 2}
+  MoveCameraToMaze: 1
