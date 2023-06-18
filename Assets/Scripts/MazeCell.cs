@@ -55,6 +55,7 @@ public class MazeCell{
     /// of the cell the method is called on does not correspond to any known state.
     /// </exception>
     public (CellType cellType, float rotationDegrees) GetCellTypeAndRotation(){
+        // Convert the IsSolid state of the MazeCellSides into a nibble
         int bitPattern = 0;
         for (int i = 0; i < CellSides.Length; i++){
             if (CellSides[i].IsSolid) bitPattern |= 1 << i;
@@ -132,18 +133,23 @@ public class MazeCell{
     public static IEnumerable<MazeCell> GetNeighbours(MazeCell[,] mazeArray, MazeCell mazeCell){
         MazeCell[] neighbours = new MazeCell[SideAmount];
         
+        // Initialise all the MazeCells in the array with null
         for (int i = 0; i < neighbours.Length; i++){
             neighbours[i] = null;
         }
-
+        
+        // Get the size of the maze
         int mazeSizeX = mazeArray.GetLength(0);
         int mazeSizeY = mazeArray.GetLength(1);
-
+        
+        // Check to see if the neighbour exists and assign the
+        // corresponding index in the array with the neighbour if they do
         if (mazeCell.Y < (mazeSizeY - 1)) neighbours[0] = mazeArray[mazeCell.X, mazeCell.Y + 1];
         if (mazeCell.X < (mazeSizeX - 1)) neighbours[1] = mazeArray[mazeCell.X + 1, mazeCell.Y];
         if (mazeCell.Y > 0) neighbours[2] = mazeArray[mazeCell.X, mazeCell.Y - 1];
         if (mazeCell.X > 0) neighbours[3] = mazeArray[mazeCell.X - 1, mazeCell.Y];
         
+        // Return the neighbours
         return neighbours;
     }
     
