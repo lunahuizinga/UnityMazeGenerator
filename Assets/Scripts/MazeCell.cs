@@ -87,20 +87,6 @@ public class MazeCell{
             _ => throw new InvalidOperationException("Invalid bit pattern.")
         };
     }
-    
-    // Create a new MazeCellSide array and fill it with new instances of MazeCellSide
-    private static MazeCellSide[] GenerateDefaultCellSides(){
-        // Initialise the array of MazeCellSides
-        MazeCellSide[] cellSides = new MazeCellSide[SideAmount];
-        
-        // Initialise every MazeCellSide in the array
-        for (int i = 0; i < cellSides.Length; i++){
-            cellSides[i] = new MazeCellSide();
-        }
-        
-        // Return the newly initialised array
-        return cellSides;
-    }
 
     // Return the MazeCellSide instance corresponding to the CellDirection
     public MazeCellSide GetCellSideInstance(CellDirection direction){
@@ -187,5 +173,19 @@ public class MazeCell{
             CellDirection.NegativeX => CellDirection.PositiveX,
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, "Not a valid direction!")
         };
+    }
+
+    // Create a new MazeCellSide array and fill it with new instances of MazeCellSide
+    private static MazeCellSide[] GenerateDefaultCellSides(){
+        // Initialise the array of MazeCellSides
+        MazeCellSide[] cellSides = new MazeCellSide[SideAmount];
+        
+        // Initialise every MazeCellSide in the array
+        for (int i = 0; i < cellSides.Length; i++){
+            cellSides[i] = new MazeCellSide();
+        }
+        
+        // Return the newly initialised array
+        return cellSides;
     }
 }
