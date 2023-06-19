@@ -17,6 +17,10 @@ public class MazeGenerator : MonoBehaviour{
     private MazeAlgorithm algorithmInstance;
     // The instance of the maze GameObject that we create
     private GameObject maze;
+    // Whether or not we should move the camera to the newly generated maze
+    public bool FocusCameraOnMaze = true;
+    // The camera to focus on the maze
+    public Camera MazeCamera;
 
     // Public setter for the X component of Size
     public void SetMazeSizeX(int sizeX) => Size = new Vector2Int(sizeX, Size.y);
@@ -32,6 +36,9 @@ public class MazeGenerator : MonoBehaviour{
     
     // Public setter for Size
     public void SetMazeSize(Vector2Int size) => Size = size;
+    
+    // Public getter for maze
+    public GameObject GetCurrentMaze() => maze;
 
     // Generate is used to start a new maze generation cycle
     public void Generate(){
@@ -41,6 +48,12 @@ public class MazeGenerator : MonoBehaviour{
         MazeCell[,] generatedMaze = algorithmInstance.Generate(Size.x, Size.y);
         // Build the newly generated maze
         BuildMaze(generatedMaze);
+
+        if (!FocusCameraOnMaze) return;
+        Camera cameraToFocus = MazeCamera != null ? MazeCamera : Camera.main;
+        if (cameraToFocus == null) return;
+        CameraObjectFocus cameraFocus = cameraToFocus.GetComponent<CameraObjectFocus>();
+        cameraFocus.FocusOnObject(maze);
     }
 
     // Initialise initialises the necessary variables to the correct values
