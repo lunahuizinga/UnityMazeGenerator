@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa11a33d0eafc0643a19f38ed3ff2fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraHeightOffset: 10
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,6 +458,34 @@ PrefabInstance:
     - target: {fileID: 1076676537, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2030528191}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetMazeSizeY
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: MazeGenerator, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1820457056, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1043,6 +1072,34 @@ PrefabInstance:
     - target: {fileID: 1076676537, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2030528191}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetMazeSizeX
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: MazeGenerator, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681876751, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1820457056, guid: c05b2e107d34e8942bebeb3592a71ac5, type: 3}
       propertyPath: m_AnchorMax.x
