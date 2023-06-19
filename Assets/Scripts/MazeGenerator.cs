@@ -18,6 +18,21 @@ public class MazeGenerator : MonoBehaviour{
     // The instance of the maze GameObject that we create
     private GameObject maze;
 
+    // Public setter for the X component of Size
+    public void SetMazeSizeX(int sizeX) => Size = new Vector2Int(sizeX, Size.y);
+    
+    // Create an overload of SetMazeSizeX in order for us to use it in the UI
+    public void SetMazeSizeX(float sizeX) => SetMazeSizeX((int) sizeX);
+    
+    // Public setter for the Y component of Size
+    public void SetMazeSizeY(int sizeY) => Size = new Vector2Int(Size.x, sizeY);
+
+    // Create an overload of SetMazeSizeY in order for us to use it in the UI
+    public void SetMazeSizeY(float sizeY) => SetMazeSizeY((int) sizeY);
+    
+    // Public setter for Size
+    public void SetMazeSize(Vector2Int size) => Size = size;
+
     // Generate is used to start a new maze generation cycle
     public void Generate(){
         // Initialise the algorithmInstance with our chosen algorithm
