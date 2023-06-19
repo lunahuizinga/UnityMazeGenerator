@@ -29,7 +29,7 @@ public class CameraObjectFocus : MonoBehaviour{
         
         // Calculate both the horizontal and vertical fitting distance
         float verticalFittingDistance = GetFittingDistance(objectBounds.extents.z, verticalFieldOfView);
-        float horizontalFittingDistance = GetFittingDistance(objectBounds.extents.y, horizontalFieldOfView);
+        float horizontalFittingDistance = GetFittingDistance(objectBounds.extents.x, horizontalFieldOfView);
 
         float cameraDistance = Mathf.Max(verticalFittingDistance, horizontalFittingDistance);
         cameraDistance += CameraHeightOffset;
