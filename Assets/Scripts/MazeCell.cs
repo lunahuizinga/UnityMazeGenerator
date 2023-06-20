@@ -111,12 +111,12 @@ public class MazeCell{
     /// Get the surrounding neighbours of the specified MazeCell, if they exist.
     /// </summary>
     /// <param name="mazeArray">The two-dimensional maze array that the MazeCell is part of. </param>
-    /// <param name="mazeCell">The MazeCell to get the neighbours of.</param>
+    /// <param name="originCell">The MazeCell to get the neighbours of.</param>
     /// <returns>
     /// An array containing the neighbours of the given MazeCell.
     /// The neighbours are given in clockwise order starting at positive Y.
     /// </returns>
-    public static IEnumerable<MazeCell> GetNeighbours(MazeCell[,] mazeArray, MazeCell mazeCell){
+    public static IEnumerable<MazeCell> GetNeighbours(MazeCell[,] mazeArray, MazeCell originCell){
         MazeCell[] neighbours = new MazeCell[SideAmount];
         
         // Initialise all the MazeCells in the array with null
@@ -130,10 +130,10 @@ public class MazeCell{
         
         // Check to see if the neighbour exists and assign the
         // corresponding index in the array with the neighbour if they do
-        if (mazeCell.Y < (mazeSizeY - 1)) neighbours[0] = mazeArray[mazeCell.X, mazeCell.Y + 1];
-        if (mazeCell.X < (mazeSizeX - 1)) neighbours[1] = mazeArray[mazeCell.X + 1, mazeCell.Y];
-        if (mazeCell.Y > 0) neighbours[2] = mazeArray[mazeCell.X, mazeCell.Y - 1];
-        if (mazeCell.X > 0) neighbours[3] = mazeArray[mazeCell.X - 1, mazeCell.Y];
+        if (originCell.Y < (mazeSizeY - 1)) neighbours[0] = mazeArray[originCell.X, originCell.Y + 1];
+        if (originCell.X < (mazeSizeX - 1)) neighbours[1] = mazeArray[originCell.X + 1, originCell.Y];
+        if (originCell.Y > 0) neighbours[2] = mazeArray[originCell.X, originCell.Y - 1];
+        if (originCell.X > 0) neighbours[3] = mazeArray[originCell.X - 1, originCell.Y];
         
         // Return the neighbours
         return neighbours;
