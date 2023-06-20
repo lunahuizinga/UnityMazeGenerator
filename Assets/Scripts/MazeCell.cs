@@ -140,6 +140,35 @@ public class MazeCell{
     }
     
     /// <summary>
+    /// This method gets the neighbour of a given cell.
+    /// </summary>
+    /// <param name="originCell">The cell to get the neighbour of.</param>
+    /// <param name="neighbourDirection">The direction the neighbour from the origin cell.</param>
+    /// <param name="mazeArray">The maze the cells are in.</param>
+    /// <returns>
+    /// The neighbour of originCell in CellDirection neighbourDirection.
+    /// This will be null if the neighbour doesn't exist.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when neighbourDirection is not a valid direction.
+    /// </exception>
+    public static MazeCell GetNeighbour(MazeCell originCell, CellDirection neighbourDirection, MazeCell[,] mazeArray){
+        
+        // Get the size of the maze
+        int mazeSizeX = mazeArray.GetLength(0);
+        int mazeSizeY = mazeArray.GetLength(1);
+        
+        // Check to see if the neighbour location is valid in the maze and return the neighbour if it is
+        return neighbourDirection switch{
+            CellDirection.PositiveY => originCell.Y < (mazeSizeY - 1) ? mazeArray[originCell.X, originCell.Y + 1] : null,
+            CellDirection.PositiveX => originCell.X < (mazeSizeX - 1) ? mazeArray[originCell.X + 1, originCell.Y] : null,
+            CellDirection.NegativeY => originCell.Y > 0 ? mazeArray[originCell.X, originCell.Y - 1] : null,
+            CellDirection.NegativeX => originCell.X > 0 ? mazeArray[originCell.X - 1, originCell.Y] : null,
+            _ => throw new ArgumentOutOfRangeException(nameof(neighbourDirection), neighbourDirection, "Invalid CellDirection.")
+        };
+    }
+    
+    /// <summary>
     /// This method will get the CellDirection of the given neighbouring MazeCell.
     /// </summary>
     /// <param name="neighbour">The neighbour to get the direction of.</param>
