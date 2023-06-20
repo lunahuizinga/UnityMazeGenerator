@@ -121,19 +121,8 @@ public class MazeCell{
         
         // Initialise all the MazeCells in the array with null
         for (int i = 0; i < neighbours.Length; i++){
-            neighbours[i] = null;
+            neighbours[i] = GetNeighbour(originCell, (CellDirection) i, mazeArray);
         }
-        
-        // Get the size of the maze
-        int mazeSizeX = mazeArray.GetLength(0);
-        int mazeSizeY = mazeArray.GetLength(1);
-        
-        // Check to see if the neighbour exists and assign the
-        // corresponding index in the array with the neighbour if they do
-        if (originCell.Y < (mazeSizeY - 1)) neighbours[0] = mazeArray[originCell.X, originCell.Y + 1];
-        if (originCell.X < (mazeSizeX - 1)) neighbours[1] = mazeArray[originCell.X + 1, originCell.Y];
-        if (originCell.Y > 0) neighbours[2] = mazeArray[originCell.X, originCell.Y - 1];
-        if (originCell.X > 0) neighbours[3] = mazeArray[originCell.X - 1, originCell.Y];
         
         // Return the neighbours
         return neighbours;
