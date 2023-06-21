@@ -55,6 +55,7 @@ public class MazeCell{
     /// of the cell the method is called on does not correspond to any known state.
     /// </exception>
     public (CellType cellType, float rotationDegrees) GetCellTypeAndRotation(){
+        // Convert the IsSolid state of the MazeCellSides into a nibble
         int bitPattern = 0;
         for (int i = 0; i < CellSides.Length; i++){
             if (CellSides[i].IsSolid) bitPattern |= 1 << i;
@@ -86,20 +87,6 @@ public class MazeCell{
             _ => throw new InvalidOperationException("Invalid bit pattern.")
         };
     }
-    
-    // Create a new MazeCellSide array and fill it with new instances of MazeCellSide
-    private static MazeCellSide[] GenerateDefaultCellSides(){
-        // Initialise the array of MazeCellSides
-        MazeCellSide[] cellSides = new MazeCellSide[SideAmount];
-        
-        // Initialise every MazeCellSide in the array
-        for (int i = 0; i < cellSides.Length; i++){
-            cellSides[i] = new MazeCellSide();
-        }
-        
-        // Return the newly initialised array
-        return cellSides;
-    }
 
     // Return the MazeCellSide instance corresponding to the CellDirection
     public MazeCellSide GetCellSideInstance(CellDirection direction){
@@ -124,27 +111,50 @@ public class MazeCell{
     /// Get the surrounding neighbours of the specified MazeCell, if they exist.
     /// </summary>
     /// <param name="mazeArray">The two-dimensional maze array that the MazeCell is part of. </param>
-    /// <param name="mazeCell">The MazeCell to get the neighbours of.</param>
+    /// <param name="originCell">The MazeCell to get the neighbours of.</param>
     /// <returns>
     /// An array containing the neighbours of the given MazeCell.
     /// The neighbours are given in clockwise order starting at positive Y.
     /// </returns>
-    public static IEnumerable<MazeCell> GetNeighbours(MazeCell[,] mazeArray, MazeCell mazeCell){
+    public static IEnumerable<MazeCell> GetNeighbours(MazeCell[,] mazeArray, MazeCell originCell){
         MazeCell[] neighbours = new MazeCell[SideAmount];
         
+        // Initialise all the MazeCells in the array with null
         for (int i = 0; i < neighbours.Length; i++){
-            neighbours[i] = null;
+            neighbours[i] = GetNeighbour(originCell, (CellDirection) i, mazeArray);
         }
-
+        
+        // Return the neighbours
+        return neighbours;
+    }
+    
+    /// <summary>
+    /// This method gets the neighbour of a given cell.
+    /// </summary>
+    /// <param name="originCell">The cell to get the neighbour of.</param>
+    /// <param name="neighbourDirection">The direction the neighbour from the origin cell.</param>
+    /// <param name="mazeArray">The maze the cells are in.</param>
+    /// <returns>
+    /// The neighbour of originCell in CellDirection neighbourDirection.
+    /// This will be null if the neighbour doesn't exist.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when neighbourDirection is not a valid direction.
+    /// </exception>
+    public static MazeCell GetNeighbour(MazeCell originCell, CellDirection neighbourDirection, MazeCell[,] mazeArray){
+        
+        // Get the size of the maze
         int mazeSizeX = mazeArray.GetLength(0);
         int mazeSizeY = mazeArray.GetLength(1);
-
-        if (mazeCell.Y < (mazeSizeY - 1)) neighbours[0] = mazeArray[mazeCell.X, mazeCell.Y + 1];
-        if (mazeCell.X < (mazeSizeX - 1)) neighbours[1] = mazeArray[mazeCell.X + 1, mazeCell.Y];
-        if (mazeCell.Y > 0) neighbours[2] = mazeArray[mazeCell.X, mazeCell.Y - 1];
-        if (mazeCell.X > 0) neighbours[3] = mazeArray[mazeCell.X - 1, mazeCell.Y];
         
-        return neighbours;
+        // Check to see if the neighbour location is valid in the maze and return the neighbour if it is
+        return neighbourDirection switch{
+            CellDirection.PositiveY => originCell.Y < (mazeSizeY - 1) ? mazeArray[originCell.X, originCell.Y + 1] : null,
+            CellDirection.PositiveX => originCell.X < (mazeSizeX - 1) ? mazeArray[originCell.X + 1, originCell.Y] : null,
+            CellDirection.NegativeY => originCell.Y > 0 ? mazeArray[originCell.X, originCell.Y - 1] : null,
+            CellDirection.NegativeX => originCell.X > 0 ? mazeArray[originCell.X - 1, originCell.Y] : null,
+            _ => throw new ArgumentOutOfRangeException(nameof(neighbourDirection), neighbourDirection, "Invalid CellDirection.")
+        };
     }
     
     /// <summary>
@@ -181,5 +191,19 @@ public class MazeCell{
             CellDirection.NegativeX => CellDirection.PositiveX,
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, "Not a valid direction!")
         };
+    }
+
+    // Create a new MazeCellSide array and fill it with new instances of MazeCellSide
+    private static MazeCellSide[] GenerateDefaultCellSides(){
+        // Initialise the array of MazeCellSides
+        MazeCellSide[] cellSides = new MazeCellSide[SideAmount];
+        
+        // Initialise every MazeCellSide in the array
+        for (int i = 0; i < cellSides.Length; i++){
+            cellSides[i] = new MazeCellSide();
+        }
+        
+        // Return the newly initialised array
+        return cellSides;
     }
 }

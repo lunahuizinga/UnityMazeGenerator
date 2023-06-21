@@ -1,4 +1,5 @@
-﻿using System;
+﻿// The class responsible for generating the mesh of the maze
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -111,25 +112,33 @@ public class MazeMeshBuilder : MonoBehaviour{
     private Mesh BuildCellMesh(MazeCell mazeCell){
         List<CombineInstance> combineInstances = new();
         
+        // Loop through all the MazeCellSides in the MazeCell
         foreach (MazeCellSide cellSide in mazeCell.CellSides){
             if (!cellSide.IsSolid) continue;
             if (mazeCell.GetCellSideDirection(cellSide) is not MazeCell.CellDirection direction) continue;
             
+            // Get a new copy of WallMesh
             Mesh cellSideMesh = CloneMesh(WallMesh);
             
+            // Get the rotation of this particular MazeCellSide
             float rotation = GetWallRotation(direction);
+            // Rotate the mesh around the pivot point according to the rotation
             cellSideMesh = RotateMeshAroundPoint(cellSideMesh, Pivot, Quaternion.AngleAxis(rotation, Vector3.up));
             
+            // Add the mesh to a new CombineInstance
             CombineInstance combineInstance = new(){
                 mesh = cellSideMesh,
                 transform = transform.localToWorldMatrix
             };
             
+            // Add the CombineInstance to the combineInstances list to be combines in to a single mesh later
             combineInstances.Add(combineInstance);
         }
         
+        // If we don't have any meshes to combine we return
         if (combineInstances.Count == 0) return null;
         
+        // Create a new mesh and combine the rotated meshes into it
         Mesh cellMesh = new();
         cellMesh.CombineMeshes(combineInstances.ToArray());
         return cellMesh;
@@ -184,14 +193,18 @@ public class MazeMeshBuilder : MonoBehaviour{
     /// <param name="rotation">The rotation to apply to the mesh.</param>
     /// <returns>The rotated mesh.</returns>
     private static Mesh RotateMeshAroundPoint(Mesh mesh, Vector3 pivot, Quaternion rotation){
+        // Get the vertices and normals, rotate them according to rotation, and then assign them back to the mesh
         mesh.vertices = mesh.vertices.Select(vertex => RotateAroundPoint(vertex, pivot, rotation)).ToArray();
         mesh.normals = mesh.normals.Select(normal => RotateAroundPoint(normal, pivot, rotation)).ToArray();
-
+        
+        // Get the tangents, put their x, y, and z coordinates in a Vector3, rotate them,
+        // then transfer the x, y, and z components back together in a Vector4 with the original w component
         mesh.tangents = (from tangent in mesh.tangents
             let tangentLocation = new Vector3(tangent.x, tangent.y, tangent.z)
             let rotatedTangent = RotateAroundPoint(tangentLocation, pivot, rotation)
             select new Vector4(rotatedTangent.x, rotatedTangent.y, rotatedTangent.z, tangent.w)).ToArray();
         
+        // Return the rotated mesh
         return mesh;
     }
     
