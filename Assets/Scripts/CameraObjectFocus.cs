@@ -30,10 +30,14 @@ public class CameraObjectFocus : MonoBehaviour{
         // Calculate both the horizontal and vertical fitting distance
         float verticalFittingDistance = GetFittingDistance(objectBounds.extents.z, verticalFieldOfView);
         float horizontalFittingDistance = GetFittingDistance(objectBounds.extents.x, horizontalFieldOfView);
-
+        
+        // Get the distance from the camera to the object to have the object in frame of the camera
         float cameraDistance = Mathf.Max(verticalFittingDistance, horizontalFittingDistance);
+        // Add our offset to more nicely frame the object
         cameraDistance += CameraHeightOffset;
+        // Set the camera to the correct height
         transform.position = new Vector3(objectCenter.x, cameraDistance, objectCenter.z);
+        // Make the camera centre on the maze
         transform.LookAt(objectCenter);
     }
 
