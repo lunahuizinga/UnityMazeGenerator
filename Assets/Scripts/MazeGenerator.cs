@@ -66,7 +66,7 @@ public class MazeGenerator : MonoBehaviour{
 
     // Set up a new maze GameObject, build the maze mesh, and assign and initialise the proper components
     private void BuildMaze(MazeCell[,] mazeCells){
-        // Check to see if our maze instance is already assigned and destroy it if it does
+        // Check to see if our maze instance is already assigned and destroy it if it is
         if (maze != null){
             if(Application.isPlaying) Destroy(maze);
             else DestroyImmediate(maze);
